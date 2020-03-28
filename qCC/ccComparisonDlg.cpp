@@ -75,10 +75,11 @@ ccComparisonDlg::ccComparisonDlg(	ccHObject* compEntity,
 {
 	setupUi(this);
 
-	int maxThreadCount = QThread::idealThreadCount();
+	int maxThreadCount = QThread::idealThreadCount()*2;
+	QThreadPool::globalInstance()->setMaxThreadCount(maxThreadCount);
 	maxThreadCountSpinBox->setRange(1, maxThreadCount);
 	maxThreadCountSpinBox->setSuffix(QString(" / %1").arg(maxThreadCount));
-	maxThreadCountSpinBox->setValue(QThreadPool::globalInstance()->maxThreadCount());
+	maxThreadCountSpinBox->setValue(maxThreadCount/2);
 
 	//populate the combo-boxes
 	{
